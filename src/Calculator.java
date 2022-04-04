@@ -44,4 +44,36 @@ public class Calculator extends Preparation {
         }
         return stack.pop();
     }
+
+    public Double result2(String string){
+        String notation = notation(string);
+        String[] str = notation.split(" ");
+        Stack<Double> stack = new Stack<>();
+        for (int i = 0; i < str.length; i++) {
+            if (rotationString(str[i]) == 0) {
+                stack.push(Double.parseDouble(str[i]));
+            }
+            if (rotationString(str[i]) > 1) {
+                Double a = stack.pop();
+                Double b = stack.pop();
+                switch (str[i]) {
+                    case "+":
+                        stack.push(b + a);
+                        break;
+                    case "-":
+                        stack.push(b - a);
+                        break;
+                    case "*":
+                        stack.push(b * a);
+                        break;
+                    case "/":
+                        stack.push(b / a);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return stack.pop();
+    }
 }
