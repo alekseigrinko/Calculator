@@ -1,42 +1,9 @@
 import java.util.Stack;
 
-public class Calculator {
-    public String converterForNotation(String string) {
-        String notation = "";
-        Stack<Character> stack = new Stack<>();
-        int grade;
-        for (int i = 0; i < string.length(); i++) {
-            grade = rotation(string.charAt(i));
-            if (grade == 0) {
-                notation += string.charAt(i);
-            } else if (grade == 1) {
-                stack.push(string.charAt(i));
-            } else if (grade > 1) {
-                notation += ' ';
-                while (!stack.empty()) {
-                    if (grade < rotation(stack.peek())) {
-                        notation += stack.pop();
-                    } else {
-                        break;
-                    }
-                }
-                stack.push(string.charAt(i));
-            } else if (grade == -1) {
-                notation += ' ';
-                while (rotation(stack.peek()) != 1) {
-                    notation += stack.pop();
-                }
-                stack.pop();
-            }
-        }
-        while (!stack.empty()) {
-            notation += stack.pop();
-        }
-        return notation;
-    }
+public class Calculator extends Preparation {
 
-    public Double calc(String string){
-        String notation = converterForNotation(string);
+    public Double result(String string){
+        String notation = notation(string);
         String str = "";
         Stack<Double> stack = new Stack<>();
         for (int i = 0; i < notation.length(); i++) {
@@ -76,19 +43,5 @@ public class Calculator {
             }
         }
         return stack.pop();
-    }
-
-    public int rotation(char example) {
-        if (example == '*' || example == '/') {
-            return 3;
-        } else if (example == '+' || example == '-') {
-            return 2;
-        } else if (example == '(') {
-            return 1;
-        } else if (example == ')') {
-            return -1;
-        } else {
-            return 0;
-        }
     }
 }
