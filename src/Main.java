@@ -17,5 +17,6 @@ public class Main {
         System.out.println("Введите произвольный пример:");
         String example = scanner.nextLine();
         System.out.println(calculator.calc(example));
+        System.out.println(calculator.converterForNotation(example));
     }
 }

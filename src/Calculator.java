@@ -14,7 +14,7 @@ public class Calculator {
             } else if (grade > 1) {
                 notation += ' ';
                 while (!stack.empty()) {
-                    if (grade <= rotation(stack.peek())) {
+                    if (grade < rotation(stack.peek())) {
                         notation += stack.pop();
                     } else {
                         break;
@@ -37,7 +37,7 @@ public class Calculator {
 
     public Double calc(String string){
         String notation = converterForNotation(string);
-        String str = new String();
+        String str = "";
         Stack<Double> stack = new Stack<>();
         for (int i = 0; i < notation.length(); i++) {
             if (notation.charAt(i) == ' ') {
@@ -52,22 +52,26 @@ public class Calculator {
                     }
                 }
                 stack.push(Double.parseDouble(str));
-                str = new String();
+                str = "";
             }
             if (rotation(notation.charAt(i)) > 1) {
                 Double a = stack.pop();
                 Double b = stack.pop();
-                if (notation.charAt(i) == '+') {
-                    stack.push(b + a);
-                }
-                if (notation.charAt(i) == '-') {
-                    stack.push(b - a);
-                }
-                if (notation.charAt(i) == '*') {
-                    stack.push(b * a);
-                }
-                if (notation.charAt(i) == '/') {
-                    stack.push(b / a);
+                switch (notation.charAt(i)) {
+                    case '+':
+                        stack.push(b + a);
+                        break;
+                    case '-':
+                        stack.push(b - a);
+                        break;
+                    case '*':
+                        stack.push(b * a);
+                        break;
+                    case '/':
+                        stack.push(b / a);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
